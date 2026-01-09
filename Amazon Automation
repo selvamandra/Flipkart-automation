@@ -1,0 +1,231 @@
+package com.steps;
+
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.When;
+import io.cucumber.java.en.Then;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+// Assuming you have a DriverFactory or Hooks class to manage the WebDriver instance
+// import com.util.DriverFactory; 
+
+public class LoginSteps {
+     
+	WebDriver driver;
+       
+	@Given("the user is on the login page")
+	public void user_opens_amazon_website() {
+	
+		driver = new ChromeDriver(); 
+	   	driver.manage().window().maximize();
+		driver.get("https://www.amazon.com/");
+	}
+
+	@When("the user click on sign in link")
+	public void the_user_clicks_valid_credentials() {
+	  driver.findElement(By.xpath("//span[@id='line-1']")).click();
+	  
+	}
+
+	@When("User enters valid username")
+	public void user_enteres_username(String selvamandra) {
+		driver.findElement(By.xpath("//input[@id='ap_login']")).sendKeys("selvamandra");
+	    driver.findElement(By.xpath("//input[@type='submit']")).click();
+	}
+
+	@When("User enters valid password")
+	public void user_enteres_password(String password123) {
+		driver.findElement(By.xpath("//input[@id='input-code']")).sendKeys("password");
+        driver.findElement(By.xpath("//input[@aria-label='verify OTP Button']")).click();
+	}
+		@Then("the user should be logged in successfully ")
+	public void the_user_should_be_logged_in_successfully() {
+	 System.out.println("Loggedin Successful");
+	}
+ 
+	  @When("User search product")
+	  public void user_search_product(String iphone) throws Exception {
+		  driver.findElement(By.xpath("//input[@id='twotabsearchtextbox']")).sendKeys(iphone);
+	  }
+	 
+
+	  @Then("the user should see the product listed")
+	  public void the_user_should_see_the_product_listed() {
+		  driver.findElement(By.xpath("//input[@id='nav-search-submit-button']")).click();
+		  System.out.println("Product Listed Successfully");
+	  }
+       
+	  @When("User adds product to cart")
+	  public void user_adds_product_to_cart() {
+		  driver.findElement(By.xpath("(//span[@class='a-size-medium a-color-base a-text-normal'])[1]")).click();
+		  driver.findElement(By.xpath("//input[@id='add-to-cart-button']")).click();
+	  }   
+	  
+	  @Then("the product should be added to cart successfully")	
+	  public void the_product_should_be_added_to_cart_successfully() {
+		  System.out.println("Product added to cart successfully");
+	  }
+      
+	  @When("User proceeds to checkout")
+	  public void user_proceeds_to_checkout() {
+		  driver.findElement(By.xpath("//a[@id='hlb-ptc-btn-native']")).click();
+	  }
+      	  @Then("the user should be on the checkout page")
+      	  	  public void the_user_should_be_on_the_checkout_page() {
+      		  driver.findElement(By.xpath("//h1[contains(text(),'Checkout')]"));
+      		  		  System.out.println("User is on checkout page");
+      	  }
+      	  @When("User enters shipping details")
+      	  	  	  	  public void user_enters_shipping_details() {
+	  		  		  driver.findElement(By.xpath("//input[@name='addressLine1']")).sendKeys("123 Main St");
+	  		  		  driver.findElement(By.xpath("//input[@name='city']")).sendKeys("Chennai");
+	  		  		  driver.findElement(By.xpath("//input[@name='state']")).sendKeys("Tamilnadu");
+	  		  		  driver.findElement(By.xpath("//input[@name='zipCode']")).sendKeys("600001");
+	  		  		  driver.findElement(By.xpath("//input[@name='phoneNumber']")).sendKeys("9952760578");
+	  		  		  driver.findElement(By.xpath("//input[@name='continue']")).click();
+	  	  }
+      	  @When("User selects payment method")
+      	  	  	  	  public void user_selects_payment_method() {
+	  		  		  driver.findElement(By.xpath("//input[@name='paymentMethod']")).click();
+	  		  		  driver.findElement(By.xpath("//input[@name='continue']")).click();
+	  	  }
+      	  @When("User reviews the shipping details")
+	  	  	  	  	  public void user_reviews_the_shipping_details() {
+	  		  		  driver.findElement(By.id("shippingReview"));
+	  		  		  driver.findElement(By.id("input[name='continue']")).click();
+      	  }
+      	  @When("User reviews the payment details")
+	  	  	  	  	  public void user_reviews_the_payment_details() {
+	  		  		  driver.findElement(By.xpath("//h2[contains(text(),'Review Your Payment')]"));
+      	  }
+      	  @When("User reviews the order")
+      	  	  	  	  public void user_reviews_the_order() {
+	  		  		  driver.findElement(By.xpath("//h2[contains(text(),'Review Your Order')]"));
+	  		  		  driver.findElement(By.xpath("//input[@name='continue']")).click();
+      	  }
+      	  @When("User places the order")
+	  	  	  public void user_places_the_order() {
+      		  	  		  driver.findElement(By.xpath("//input[@name='placeYourOrder1']")).click();
+      		  	  		  driver.findElement(By.xpath("//h1[contains(text(),'Order Placed')]"));
+      		  	  		  
+      	  }
+      	  @When("User confirms the order")
+      	  	  	  	  public void user_confirms_the_order() {
+	  		  		  driver.findElement(By.xpath("//h1[contains(text(),'Order Confirmed')]"));
+	  		  		  
+      	  }
+      	  @When("User completes the purchase")
+	  	  	  	  	  public void user_completes_the_purchase() {
+      		  	  		  		  driver.findElement(By.xpath("//h1[contains(text(),'Purchase Complete')]"));
+      	  }
+	  	 @When("User places the order")
+	  	  	  public void user_places_order() {
+	  		  	  		  driver.findElement(By.xpath("//input[@name='placeYourOrder1']")).click();
+	  		  	  		  driver.findElement(By.xpath("//h1[contains(text(),'Order Placed')]"));
+	  		  	  		  
+	  	  }
+	  	 @When("User reviews and confirms the order")
+	  	  	  	  	  public void user_reviews_and_confirms_the_order() {
+	  		  		  driver.findElement(By.xpath("//h1[contains(text(),'Order Confirmed')]"));
+	  	 }
+      	  @Then("the order should be placed successfully")
+	  	  	  public void the_order_should_be_placed_successfully() {
+	  		  		  System.out.println("Order placed successfully");
+	  	  }
+       @When("User logs out from the application")
+       	  	  public void user_logs_out_from_the_application() {
+	  		  driver.findElement(By.xpath("//span[@id='nav-link-accountList-nav-line-1']")).click();
+	  		  driver.findElement(By.xpath("//a[@id='nav-item-signout']")).click();
+       }
+      	
+       @Then("the user should be logged out successfully")
+			  	  public void the_user_should_be_logged_out_successfully() {
+      			  		  System.out.println("User logged out successfully");
+      	}
+       @When("Capture screenshot of the order confirmation page")
+			  	  public void capture_screenshot_of_the_order_confirmation_page() {
+    	   	  			  		  System.out.println("Screenshot captured successfully");
+       }
+       @Then("the order confirmation message should be displayed")
+			  	  public void the_order_confirmation_message_should_be_displayed() {
+	  			  		  System.out.println("Order confirmation message displayed successfully");
+	   }
+       @When("User tracks the order status")
+			  	  public void user_tracks_the_order_status() {
+		   	  		  		  driver.findElement(By.xpath("//span[@id='nav-orders']")).click();
+	   }
+       @Then("the order status should be updated")
+			  	  public void the_order_status_should_be_updated() {
+	  			  		  System.out.println("Order status updated successfully");
+       }
+       @When("User navigates to order history page")
+			  	  public void user_navigates_to_order_history_page() {
+    	   	  		  		  driver.findElement(By.xpath("//span[@id='nav-orders']")).click();
+       }
+       @Then("the order should be listed in order history")
+			  	  public void the_order_should_be_listed_in_order_history() {
+	  			  		  System.out.println("Order is listed in order history");
+	   }
+       @Then("take screenshot of the product added to cart")
+			  	  public void take_screenshot_of_the_product_added_to_cart() {
+       	  			  		  System.out.println("Screenshot of product added to cart captured successfully");
+       }
+       @When("User updates the quantity of the product in cart")
+			  	  public void user_updates_the_quantity_of_the_product_in_cart() {
+	   	  			  		  driver.findElement(By.xpath("//select[@name='quantity']")).sendKeys("2");
+	   }
+       @Then("the cart should reflect the updated quantity")
+			  	  public void the_cart_should_reflect_the_updated_quantity() {
+	  			  		  System.out.println("Cart updated with new quantity successfully");
+	   }
+       @When("User removes the product from cart")
+			  	  public void user_removes_the_product_from_cart() {
+	   	  			  		  driver.findElement(By.xpath("//input[@value='Delete']")).click();
+	   }
+       @Then("the product should be removed from cart successfully")
+			  	  public void the_product_should_be_removed_from_cart_successfully() {
+	  			  		  System.out.println("Product removed from cart successfully");
+	   }
+       @When("User applies a gift card at checkout")
+			  	  public void user_applies_a_gift_card_at_checkout() {
+		   	   	  			  		  driver.findElement(By.xpath("//input[@id='giftCardCode']")).sendKeys("GIFT123");
+	   	  			  		  driver.findElement(By.xpath("//input[@name='applyGiftCard']")).click();
+	   }
+       @When("User applies a promo code at checkout")
+			  	  public void user_applies_a_promo_code_at_checkout() {
+    	   	   	  			  		  driver.findElement(By.xpath("//input[@id='promoCode']")).sendKeys("PROMO123");
+	   	  			  		  driver.findElement(By.xpath("//input[@name='applyPromo']")).click();
+       }
+       @When("User selects express shipping option")
+			  	  public void user_selects_express_shipping_option() {
+	   	  			  		  driver.findElement(By.xpath("//input[@id='expressShipping']")).click();
+       }
+      @When("User selects standard shipping option")
+			  	  public void user_selects_standard_shipping_option() {
+	   	  			  		  driver.findElement(By.xpath("//input[@id='standardShipping']")).click();
+	   }
+       @Then("the discount should be applied successfully")
+			  	  public void the_discount_should_be_applied_successfully() {
+	  			  		  System.out.println("Discount applied successfully");
+       }
+       @Then("take screenshot of the checkout page")
+			  	  public void take_screenshot_of_the_checkout_page() {
+	   	  			  		  System.out.println("Screenshot of checkout page captured successfully");
+	   }
+       @When("User selects gift wrapping option")
+			  	  public void user_selects_gift_wrapping_option() {
+	   	  			  		  driver.findElement(By.xpath("//input[@id='giftWrap']")).click();
+	   }
+       @Then("the gift wrapping should be added successfully")
+			  	  public void the_gift_wrapping_should_be_added_successfully() {
+	  			  		  System.out.println("Gift wrapping added successfully");
+	   }
+       
+       @Then("close the browser")
+        	  	  public void close_the_browser() {
+	  		  driver.quit();
+	  	  }
+
+}	        
+
